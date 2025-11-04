@@ -1,0 +1,38 @@
+# Firebase sensitive configuration files
+public/firebase/config.js
+scripts/serviceAccountKey.json
+.firebaserc
+
+# Environment files
+.env
+.env.*
+*.env
+
+# Dependency directories
+node_modules/
+
+# Firebase cache
+.firebase/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+npm-debug.log*
+
+# Build files
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/

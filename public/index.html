@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="One Sip - Experience exceptional dining with our specialty meals and warm hospitality">
+    <meta name="keywords" content="restaurant, dining, food, specialty meals, reservations">
+    <title>One Sip - Restaurant</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header" id="nav-header">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>One Sip</h1>
+            </div>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#feature-cards" class="nav-link">Menu</a>
+                <a href="#eat-together" class="nav-link">Reservations</a>
+                <a href="#login" class="nav-link">Login</a>
+            </nav>
+            <div class="social-icons">
+                <a href="#" class="social-icon" aria-label="Yelp"><i class="fab fa-yelp"></i></a>
+                <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home/Hero Section -->
+    <section id="home" class="section hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="hero-title">INSPIRED THAI CUISINE</h2>
+            <p class="hero-subtitle">Voted New York's Best Thai Restaurant</p>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section id="eat-together" class="featured-section">
+        <div class="featured-content">
+            <h2 class="featured-title">EAT TOGETHER</h2>
+            <p class="featured-description">Every plate achieves that elusive, cuisine-defining balance of sweet, salty, and sour – dessert.</p>
+            <a href="reservations.html" class="btn btn-outline">Make a Reservation</a>
+        </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section id="feature-cards" class="feature-cards-section">
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-card-image" style="background-image: url('images/Feature-image1.jpg');">
+                    <div class="feature-card-overlay">
+                        <p class="feature-card-overlay-text">Crafted in the Kitchen</p>
+                    </div>
+                </div>
+                <div class="feature-card-content">
+                    <h3>Crafted in the Kitchen</h3>
+                    <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-image" style="background-image: url('images/feature-image2.jpg');">
+                    <div class="feature-card-overlay">
+                        <p class="feature-card-overlay-text">Fresh Ingredients</p>
+                    </div>
+                </div>
+                <div class="feature-card-content">
+                    <h3>Fresh Ingredients</h3>
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-image" style="background-image: url('images/feature-image3.jpg');">
+                    <div class="feature-card-overlay">
+                        <p class="feature-card-overlay-text">Master Chef</p>
+                    </div>
+                </div>
+                <div class="feature-card-content">
+                    <h3>Master Chef</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue. Maecenas sed diam eget risus varius blandit.</p>
+                </div>
+            </div>
+        </div>
+        <div class="view-menu-btn-container">
+            <a href="menu.html" class="btn btn-outline-dark">View Menu</a>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="section news-section">
+        <div class="container">
+            <h2 class="section-title">Latest News</h2>
+            <p class="section-subtitle">Stay updated with One Sip</p>
+            <div class="news-placeholder">
+                <p>News and updates will be added here</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="section login-section">
+        <div class="container">
+            <div class="login-container">
+                <h2 class="section-title">Member Login</h2>
+                <p class="section-subtitle">Access your account for exclusive perks</p>
+
+                <form class="login-form" id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" name="login-email" required placeholder="your@email.com" autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="login-password" required placeholder="Enter your password" autocomplete="current-password">
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember"> Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+
+                    <div class="login-divider">or</div>
+
+                    <button type="button" class="btn btn-secondary btn-full" id="signup-btn">Create New Account</button>
+
+                    <div class="form-message" id="login-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>One Sip</h3>
+                    <p>Experience exceptional dining with every visit.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="reservations.html">Reservations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@onesip.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="footer-social-links">
+                        <a href="#" aria-label="Yelp"><i class="fab fa-yelp"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 One Sip Restaurant. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
