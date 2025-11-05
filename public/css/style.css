@@ -132,12 +132,9 @@ img {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(26, 26, 26, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: transparent;
     z-index: 1000;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav-header.header-hidden {
@@ -249,13 +246,10 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+    background-image: url('../images/heropage_image.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    /* Add your hero image here:
-    background-image: url('../images/hero-image.jpg');
-    */
 }
 
 .hero-overlay {
@@ -299,6 +293,34 @@ img {
 }
 
 /* ===================================
+   Destination Section
+   =================================== */
+.destination-section {
+    background: var(--white);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+}
+
+.destination-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-primary);
+    letter-spacing: 0.02em;
+}
+
+.destination-text {
+    font-size: 1.125rem;
+    line-height: 1.9;
+    color: var(--text-color);
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: var(--font-secondary);
+    font-weight: 400;
+}
+
+/* ===================================
    Featured Section
    =================================== */
 .featured-section {
@@ -309,7 +331,7 @@ img {
     background-image: url('../images/restaurant-interior.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: scroll;
     position: relative;
 }
 
@@ -665,6 +687,53 @@ img {
     content: '🔵 ';
 }
 
+/* Reservation Info Section */
+.reservation-info-section {
+    background: var(--white);
+    padding: var(--spacing-xl) 0;
+}
+
+.reservation-info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.reservation-info-card {
+    background: var(--white);
+    padding: var(--spacing-lg);
+    text-align: left;
+}
+
+.reservation-info-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-md);
+    color: var(--secondary-color);
+    font-family: var(--font-primary);
+}
+
+.reservation-info-card p {
+    color: var(--text-color);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-sm);
+    font-size: 1rem;
+}
+
+.reservation-info-card p:last-child {
+    margin-bottom: 0;
+}
+
+.reservation-info-card strong {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
 /* ===================================
    Locations Section
    =================================== */
@@ -683,9 +752,7 @@ img {
     height: 100%;
     background-size: cover;
     background-position: center;
-    /* Add your location image here:
-    background-image: url('../images/location-interior.jpg');
-    */
+    background-image: url('../images/retsaurant_dining_room.jpg');
 }
 
 .location-image-placeholder {

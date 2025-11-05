@@ -116,27 +116,34 @@ function initScrollSpy() {
 }
 
 /**
- * Header Scroll - Hide header on scroll down, show only on hero
+ * Header Scroll - Hide header on scroll down, show on scroll up
  */
 function initHeaderScroll() {
     const header = document.getElementById('nav-header');
-    const heroSection = document.getElementById('home');
 
-    if (!header || !heroSection) return;
+    if (!header) return;
 
     let lastScrollTop = 0;
-    const heroHeight = heroSection.offsetHeight;
+    const scrollThreshold = 100; // Start hiding after scrolling 100px
 
     // Debounced scroll handler for performance
     const handleScroll = debounce(() => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-        // If we're in the hero section, always show header
-        if (currentScroll < heroHeight * 0.9) {
+        // Prevent negative values
+        if (currentScroll < 0) return;
+
+        // If we're near the top, always show header
+        if (currentScroll < scrollThreshold) {
             header.classList.remove('header-hidden');
-        } else {
-            // Past hero section - hide header
+        }
+        // Scrolling down - hide header
+        else if (currentScroll > lastScrollTop) {
             header.classList.add('header-hidden');
+        }
+        // Scrolling up - show header
+        else {
+            header.classList.remove('header-hidden');
         }
 
         lastScrollTop = currentScroll;
