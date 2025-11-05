@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - One Sip Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="admin-login" class="admin-login">
+        <div class="login-card">
+            <h1>One Sip</h1>
+            <h2>Admin Dashboard</h2>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-email">Email</label>
+                    <input type="email" id="admin-email" required placeholder="admin@onesip.com">
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+                <div class="form-message" id="login-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-content">
+                <h1>One Sip - Reservations</h1>
+                <div class="admin-user-info">
+                    <span id="admin-user-email"></span>
+                    <button id="logout-btn" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Today</h3>
+                <div class="stat-value" id="stat-today">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <div class="stat-value" id="stat-pending">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Confirmed</h3>
+                <div class="stat-value" id="stat-confirmed">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total</h3>
+                <div class="stat-value" id="stat-total">0</div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="filter-status">Status:</label>
+                <select id="filter-status">
+                    <option value="all">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filter-date">Date:</label>
+                <input type="date" id="filter-date">
+            </div>
+            <div class="filter-group">
+                <label for="search-input">Search:</label>
+                <input type="text" id="search-input" placeholder="Name or phone...">
+            </div>
+            <button id="clear-filters" class="btn btn-secondary">Clear Filters</button>
+        </div>
+
+        <!-- Reservations Table -->
+        <div class="reservations-container">
+            <div id="loading" class="loading">Loading reservations...</div>
+            <div id="no-reservations" class="no-data" style="display: none;">No reservations found</div>
+            <div id="reservations-table" class="reservations-table" style="display: none;">
+                <!-- Table will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Reservation Detail Modal -->
+    <div id="reservation-modal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Reservation Details</h2>
+                <span class="close-modal" id="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script src="firebase/config.js"></script>
+
+    <!-- Admin Dashboard Script -->
+    <script src="js/admin.js"></script>
+</body>
+</html>

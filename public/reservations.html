@@ -52,29 +52,78 @@
 
         <!-- Booking Widget -->
         <div class="booking-widget">
-            <div class="booking-form">
-                <div class="booking-field">
-                    <label>Party size</label>
-                    <select>
-                        <option>2 guests</option>
-                        <option>3 guests</option>
-                        <option>4 guests</option>
-                        <option>5 guests</option>
-                        <option>6 guests</option>
-                        <option>7+ guests</option>
-                    </select>
+            <form id="reservation-form" class="reservation-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-name">Full Name *</label>
+                        <input type="text" id="customer-name" name="customer-name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone Number *</label>
+                        <input type="tel" id="customer-phone" name="customer-phone" required placeholder="9876543210" pattern="[0-9]{10}">
+                    </div>
                 </div>
-                <div class="booking-field">
-                    <label>Date</label>
-                    <input type="date" value="2025-11-04">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-email">Email Address</label>
+                        <input type="email" id="customer-email" name="customer-email" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="party-size">Party Size *</label>
+                        <select id="party-size" name="party-size" required>
+                            <option value="">Select guests</option>
+                            <option value="1">1 guest</option>
+                            <option value="2">2 guests</option>
+                            <option value="3">3 guests</option>
+                            <option value="4">4 guests</option>
+                            <option value="5">5 guests</option>
+                            <option value="6">6 guests</option>
+                            <option value="7">7 guests</option>
+                            <option value="8">8 guests</option>
+                            <option value="9">9 guests</option>
+                            <option value="10">10 guests</option>
+                            <option value="10+">More than 10</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="booking-field">
-                    <label>Time</label>
-                    <input type="time" value="20:00">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reservation-date">Date *</label>
+                        <input type="date" id="reservation-date" name="reservation-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reservation-time">Time *</label>
+                        <select id="reservation-time" name="reservation-time" required>
+                            <option value="">Select time</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="12:30 PM">12:30 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="1:30 PM">1:30 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="6:00 PM">6:00 PM</option>
+                            <option value="6:30 PM">6:30 PM</option>
+                            <option value="7:00 PM">7:00 PM</option>
+                            <option value="7:30 PM">7:30 PM</option>
+                            <option value="8:00 PM">8:00 PM</option>
+                            <option value="8:30 PM">8:30 PM</option>
+                            <option value="9:00 PM">9:00 PM</option>
+                            <option value="9:30 PM">9:30 PM</option>
+                            <option value="10:00 PM">10:00 PM</option>
+                        </select>
+                    </div>
                 </div>
-                <button class="btn btn-book">Book now</button>
-            </div>
-            <p class="booking-powered">Powered by Tock</p>
+
+                <div class="form-group">
+                    <label for="special-requests">Special Requests</label>
+                    <textarea id="special-requests" name="special-requests" rows="3" placeholder="Birthday celebration, dietary restrictions, preferred seating, etc."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-book" id="submit-reservation">Reserve Table</button>
+
+                <div class="form-message" id="reservation-message"></div>
+            </form>
         </div>
 
         <!-- Reservation Info Section -->
@@ -105,12 +154,12 @@
             <div class="location-detail-card">
                 <h3>THE BIG ROOM</h3>
                 <p><strong>Seats up to 60</strong></p>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas faucibus mollis interdum. Aenean eu leo quam.</p>
+                <p>Designed for celebrations and gatherings, The Big Room brings together comfort and style in an open, vibrant setting. Whether it's a private party, team dinner, or special event, enjoy personalized service, curated menus, and the lively energy that defines One Sip.</p>
             </div>
             <div class="location-detail-card">
                 <h3>THE SMALL ROOM</h3>
                 <p><strong>Seats up to 15</strong></p>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas faucibus mollis interdum. Aenean eu leo quam.</p>
+                <p>Perfect for intimate occasions, The Small Room offers a cozy and elegant space for private dining, family get-togethers, or exclusive chef's table experiences. Enjoy a more personal atmosphere with the same culinary excellence and warmth.</p>
             </div>
         </div>
     </section>
@@ -132,6 +181,10 @@
                     </ul>
                 </div>
                 <div class="footer-section">
+                    <h4>Location</h4>
+                    <p>5th Floor, Terminus Building,<br>BG-12, Newtown,<br>Kolkata, West Bengal</p>
+                </div>
+                <div class="footer-section">
                     <h4>Contact</h4>
                     <p>Email: info@onesip.com</p>
                     <p>Phone: 9477742555 | 6292200353</p>
@@ -150,6 +203,17 @@
         </div>
     </footer>
 
+    <!-- Firebase SDK (only what we need for reservations) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script src="firebase/config.js"></script>
+
+    <!-- Reservations Handler -->
+    <script src="js/reservations.js"></script>
+
+    <!-- Main App Script -->
     <script src="js/app.js"></script>
 </body>
 </html>

@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
     initForms();
     initAnimations();
+    initMenuTabs();
+    initSignupModal();
+    initAuthStateListener();
 });
 
 /**
@@ -133,17 +136,13 @@ function initHeaderScroll() {
         // Prevent negative values
         if (currentScroll < 0) return;
 
-        // If we're near the top, always show header
+        // Only show header if we're at the very top (before threshold)
         if (currentScroll < scrollThreshold) {
             header.classList.remove('header-hidden');
         }
-        // Scrolling down - hide header
-        else if (currentScroll > lastScrollTop) {
-            header.classList.add('header-hidden');
-        }
-        // Scrolling up - show header
+        // Hide header when scrolling past threshold
         else {
-            header.classList.remove('header-hidden');
+            header.classList.add('header-hidden');
         }
 
         lastScrollTop = currentScroll;
@@ -255,11 +254,12 @@ function validateReservationForm(data) {
  * Handle login form submission
  * @param {Event} e - The submit event
  */
-function handleLoginSubmit(e) {
+async function handleLoginSubmit(e) {
     e.preventDefault();
 
     const formMessage = document.getElementById('login-message');
     const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
 
     // Get form data
     const email = form['login-email'].value;
@@ -271,19 +271,34 @@ function handleLoginSubmit(e) {
         return;
     }
 
-    // TODO: Implement Firebase authentication
-    // For now, simulate login
-    console.log('Login attempt:', { email });
+    // Disable submit button
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing In...';
 
-    showFormMessage(formMessage, 'Login functionality coming soon! Please check back later.', 'error');
+    // Sign in with Firebase
+    const result = await signInUser(email, password);
+
+    if (result.success) {
+        showFormMessage(formMessage, 'Welcome back!', 'success');
+        form.reset();
+
+        // UI will update automatically via onAuthStateChanged listener
+        // No need to reload the page
+    } else {
+        showFormMessage(formMessage, result.error, 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign In';
+    }
 }
 
 /**
  * Handle signup button click
  */
 function handleSignupClick() {
-    const formMessage = document.getElementById('login-message');
-    showFormMessage(formMessage, 'Sign up functionality coming soon! Please check back later.', 'error');
+    const signupModal = document.getElementById('signup-modal');
+    if (signupModal) {
+        signupModal.style.display = 'block';
+    }
 }
 
 /**
@@ -333,6 +348,37 @@ function initAnimations() {
 }
 
 /**
+ * Menu Tabs - Switch between Food Menu and Bar Menu
+ */
+function initMenuTabs() {
+    const menuTabs = document.querySelectorAll('.menu-tab');
+    const foodMenu = document.getElementById('food-menu');
+    const barMenu = document.getElementById('bar-menu');
+
+    if (!menuTabs.length || !foodMenu || !barMenu) return;
+
+    menuTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            menuTabs.forEach(t => t.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Show/hide appropriate menu gallery
+            const menuType = tab.getAttribute('data-menu');
+            if (menuType === 'food') {
+                foodMenu.style.display = 'block';
+                barMenu.style.display = 'none';
+            } else if (menuType === 'bar') {
+                foodMenu.style.display = 'none';
+                barMenu.style.display = 'block';
+            }
+        });
+    });
+}
+
+/**
  * Utility: Debounce function
  * @param {Function} func - The function to debounce
  * @param {number} wait - The delay in milliseconds
@@ -348,6 +394,134 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+}
+
+/**
+ * Initialize Authentication State Listener
+ * Updates UI based on user authentication status
+ */
+function initAuthStateListener() {
+    onAuthStateChanged((authState) => {
+        const loginSection = document.getElementById('login');
+        if (!loginSection) return;
+
+        const loginContainer = loginSection.querySelector('.login-container');
+        if (!loginContainer) return;
+
+        if (authState.isAuthenticated) {
+            // User is logged in - show profile
+            const user = authState.user;
+            const userName = user.displayName || user.email.split('@')[0];
+
+            loginContainer.innerHTML = `
+                <h2 class="section-title">Welcome Back!</h2>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="user-details">
+                            <h3 class="user-name">${user.displayName || 'Guest'}</h3>
+                            <p class="user-email">${user.email}</p>
+                            <p class="user-role">${user.role === 'admin' ? 'Administrator' : 'Member'}</p>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <button onclick="handleSignOut()" class="btn btn-outline-dark">Sign Out</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            // User is not logged in - show login form (this is the default state in HTML)
+            // Do nothing here, the form is already in the HTML
+        }
+    });
+}
+
+/**
+ * Handle user sign out
+ */
+async function handleSignOut() {
+    const result = await signOutUser();
+    if (result.success) {
+        window.location.reload();
+    } else {
+        alert('Failed to sign out. Please try again.');
+    }
+}
+
+/**
+ * Initialize Signup Modal
+ */
+function initSignupModal() {
+    const signupModal = document.getElementById('signup-modal');
+    const signupForm = document.getElementById('signup-form');
+    const closeModal = document.getElementById('close-signup-modal');
+    const signupMessage = document.getElementById('signup-message');
+
+    if (!signupModal || !signupForm) return;
+
+    // Close modal when clicking X
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            signupModal.style.display = 'none';
+            signupForm.reset();
+            signupMessage.style.display = 'none';
+        });
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === signupModal) {
+            signupModal.style.display = 'none';
+            signupForm.reset();
+            signupMessage.style.display = 'none';
+        }
+    });
+
+    // Handle signup form submission
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = signupForm.querySelector('button[type="submit"]');
+        const name = signupForm['signup-name'].value;
+        const email = signupForm['signup-email'].value;
+        const password = signupForm['signup-password'].value;
+        const confirmPassword = signupForm['signup-password-confirm'].value;
+
+        // Validate passwords match
+        if (password !== confirmPassword) {
+            showFormMessage(signupMessage, 'Passwords do not match.', 'error');
+            return;
+        }
+
+        if (password.length < 6) {
+            showFormMessage(signupMessage, 'Password must be at least 6 characters.', 'error');
+            return;
+        }
+
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating Account...';
+
+        // Create account with Firebase
+        const result = await signUpUser(email, password, name);
+
+        if (result.success) {
+            showFormMessage(signupMessage, 'Account created successfully! Welcome!', 'success');
+            signupForm.reset();
+
+            // Close modal after successful signup
+            setTimeout(() => {
+                signupModal.style.display = 'none';
+                // UI will update automatically via onAuthStateChanged listener
+            }, 1500);
+        } else {
+            showFormMessage(signupMessage, result.error, 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Create Account';
+        }
+    });
 }
 
 // Export functions for testing if needed

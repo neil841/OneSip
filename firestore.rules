@@ -1,0 +1,26 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Reservations collection
+    match /reservations/{reservationId} {
+      // Anyone can create a reservation (from the website form)
+      allow create: if true;
+
+      // Only authenticated admin users can read, update, or delete
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Users collection (for admin authentication)
+    match /users/{userId} {
+      // Only the user themselves can read/write their own data
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Default: deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
