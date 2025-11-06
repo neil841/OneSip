@@ -16,7 +16,10 @@ const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 // Configuration
-const FROM_EMAIL = 'noreply@onesip.co.in'; // Domain authenticated with SendGrid
+const FROM_EMAIL = {
+  email: 'noreply@onesip.co.in', // Domain authenticated with SendGrid
+  name: 'One Sip Restaurant'
+};
 const MANAGER_EMAILS = ['biswas31@yahoo.com', 'neilbiswas13@gmail.com'];
 const RESTAURANT_NAME = 'One Sip';
 const RESTAURANT_PHONE = '9477742555 | 6292200353';

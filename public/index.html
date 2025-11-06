@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20251106">
     <!-- Font Awesome for social icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -25,6 +25,7 @@
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#feature-cards" class="nav-link">Menu</a>
                 <a href="#eat-together" class="nav-link">Reservations</a>
+                <a href="#whats-on" class="nav-link">Events Calendar</a>
                 <a href="#login" class="nav-link">Login</a>
             </nav>
             <div class="social-icons">
@@ -107,13 +108,53 @@
         </div>
     </section>
 
-    <!-- News Section -->
-    <section id="news" class="section news-section">
+    <!-- What's On Section -->
+    <section id="whats-on" class="section whats-on-section">
         <div class="container">
-            <h2 class="section-title">Latest News</h2>
-            <p class="section-subtitle">Stay updated with One Sip</p>
-            <div class="news-placeholder">
-                <p>News and updates will be added here</p>
+            <h2 class="section-title">What's On</h2>
+            <p class="section-subtitle">Live music, special nights, and curated experiences</p>
+
+            <div class="events-grid">
+                <!-- Event Card 1: Live Music -->
+                <div class="event-card">
+                    <div class="event-badge">This Week</div>
+                    <div class="event-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="event-title">Live Music Nights</h3>
+                    <p class="event-time">Every Friday & Saturday | 8 PM onwards</p>
+                    <p class="event-description">Enjoy soulful acoustic performances and indie artists while you dine. The perfect soundtrack to your evening.</p>
+                    <div class="event-tag">Live Performance</div>
+                </div>
+
+                <!-- Event Card 2: DJ Night -->
+                <div class="event-card event-card-featured">
+                    <div class="event-badge event-badge-featured">Featured</div>
+                    <div class="event-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3 class="event-title">DJ Night Fridays</h3>
+                    <p class="event-time">Every Friday | 9 PM - 1 AM</p>
+                    <p class="event-description">Dance the night away with our resident DJs spinning the hottest tracks. Cocktails, beats, and vibes.</p>
+                    <div class="event-tag">Party Night</div>
+                </div>
+
+                <!-- Event Card 3: Special Menu -->
+                <div class="event-card">
+                    <div class="event-badge">New</div>
+                    <div class="event-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="event-title">Chef's Special Menu</h3>
+                    <p class="event-time">Available Now | Limited Time</p>
+                    <p class="event-description">Explore our exclusive seasonal menu crafted by our master chef. Bold flavors, fresh ingredients.</p>
+                    <div class="event-tag">Culinary Experience</div>
+                </div>
+            </div>
+
+            <div class="whats-on-cta">
+                <p class="whats-on-cta-text">Want to stay updated on upcoming events?</p>
+                <a href="#login" class="btn btn-outline-dark">Sign Up</a>
             </div>
         </div>
     </section>
@@ -235,12 +276,12 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <!-- Firebase Configuration -->
-    <script src="firebase/config.js"></script>
+    <script src="firebase/config.js?v=20251106"></script>
 
     <!-- Authentication Service -->
-    <script src="js/auth.js"></script>
+    <script src="js/auth.js?v=20251106"></script>
 
     <!-- Main App Script -->
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=20251106"></script>
 </body>
 </html>

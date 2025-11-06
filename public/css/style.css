@@ -246,7 +246,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('../images/heropage_image.jpg');
+    background-image: url('../images/hero_image.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -875,24 +875,198 @@ img {
 }
 
 /* ===================================
-   News Section
+   What's On Section
    =================================== */
-.news-section {
+.whats-on-section {
     background: var(--bg-light);
-    min-height: 40vh;
+    padding: var(--spacing-xl) 0;
 }
 
-.news-placeholder {
-    text-align: center;
-    padding: var(--spacing-xl);
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.event-card {
     background: var(--white);
-    border-radius: 8px;
-    max-width: 600px;
-    margin: 0 auto;
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all var(--transition-normal);
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.news-placeholder p {
+.event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-gold);
+}
+
+.event-card-featured {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+    color: var(--white);
+    border-color: var(--accent-gold);
+}
+
+.event-card-featured .event-title,
+.event-card-featured .event-time,
+.event-card-featured .event-description {
+    color: var(--white);
+}
+
+.event-card-featured .event-time {
+    opacity: 0.9;
+}
+
+.event-card-featured .event-description {
+    opacity: 0.85;
+}
+
+.event-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--accent-gold);
+    color: var(--white);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.event-badge-featured {
+    background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.event-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--white);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.event-card-featured .event-icon {
+    background: var(--white);
+    color: var(--accent-gold);
+}
+
+.event-title {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.event-time {
+    font-size: 0.9rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.event-card-featured .event-time {
+    color: var(--accent-gold-light);
+}
+
+.event-description {
+    font-size: 1rem;
     color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+}
+
+.event-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--bg-light);
+    color: var(--text-color);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: auto;
+}
+
+.event-card-featured .event-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--accent-gold-light);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.whats-on-cta {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.whats-on-cta-text {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-md);
+    font-weight: 500;
+}
+
+/* Responsive Design for What's On Section */
+@media (max-width: 768px) {
+    .events-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .event-card {
+        padding: var(--spacing-md);
+    }
+
+    .event-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .event-title {
+        font-size: 1.25rem;
+    }
+
+    .event-badge {
+        top: 15px;
+        right: 15px;
+        font-size: 0.7rem;
+        padding: 5px 12px;
+    }
+
+    .whats-on-cta-text {
+        font-size: 1.1rem;
+    }
 }
 
 /* ===================================
@@ -1086,6 +1260,51 @@ img {
         font-size: 1.1rem;
     }
 
+    /* Hero Section - Mobile Responsive Images */
+    .hero {
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        min-height: 100vh;
+        height: auto;
+    }
+
+    /* Featured Section - Mobile Responsive */
+    .featured-section {
+        min-height: 60vh;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    /* Feature Cards - Responsive Image Heights */
+    .feature-card-image {
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Location Section - Responsive Background */
+    .location-image {
+        background-size: cover;
+        background-position: center center;
+        min-height: 300px;
+    }
+
+    /* Reservations Hero - Tablet Responsive */
+    .reservations-hero {
+        min-height: 50vh;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    /* Menu Hero - Tablet Responsive */
+    .menu-hero {
+        min-height: 50vh;
+        background-size: cover;
+        background-position: center center;
+    }
+
     .nav-menu {
         position: fixed;
         top: var(--header-height);
@@ -1181,6 +1400,59 @@ img {
     .hero-subtitle,
     .featured-description {
         font-size: 1rem;
+    }
+
+    /* Mobile Image Responsive Fixes */
+    .hero {
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        min-height: 100vh;
+        height: auto;
+    }
+
+    .featured-section {
+        min-height: 50vh;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        padding: var(--spacing-lg) 0;
+    }
+
+    .feature-card-image {
+        height: 220px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .location-image {
+        background-size: cover;
+        background-position: center center;
+        min-height: 250px;
+        height: auto;
+    }
+
+    /* Reservations Hero - Mobile Responsive */
+    .reservations-hero {
+        min-height: 40vh;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    /* Menu Hero - Mobile Responsive */
+    .menu-hero {
+        min-height: 40vh;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    /* Ensure no image overflow on mobile */
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
     }
 
     .btn {
