@@ -76,21 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Reservation created with ID:', docRef.id);
 
-                // Show success message
-                messageDiv.textContent = '✓ Reservation request submitted successfully! We will contact you shortly to confirm.';
-                messageDiv.className = 'form-message form-message-success';
+                // Hide the form message
+                messageDiv.style.display = 'none';
 
-                // Reset form
+                // Show premium success UI
+                showSuccessUI(formData);
+
+                // Reset form (but keep it hidden)
                 reservationForm.reset();
-
-                // Scroll to message
-                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-                // Re-enable button after 3 seconds
-                setTimeout(() => {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Reserve Table';
-                }, 3000);
 
             } catch (error) {
                 console.error('Error submitting reservation:', error);
@@ -131,3 +124,103 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+/**
+ * Show Premium Success UI
+ * Replaces the reservation form with a celebratory success message
+ */
+function showSuccessUI(reservationData) {
+    const bookingWidget = document.querySelector('.booking-widget');
+
+    if (!bookingWidget) return;
+
+    // Format the date nicely
+    const date = new Date(reservationData.reservationDate);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-IN', options);
+
+    // Create success UI
+    const successHTML = `
+        <div class="reservation-success">
+            <div class="success-icon">
+                <svg viewBox="0 0 100 100" class="success-checkmark">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#D4AF37" stroke-width="3" class="checkmark-circle"/>
+                    <path d="M30 50 L45 65 L70 35" fill="none" stroke="#D4AF37" stroke-width="4" stroke-linecap="round" class="checkmark-path"/>
+                </svg>
+            </div>
+
+            <h2 class="success-title">Reservation Confirmed!</h2>
+            <p class="success-subtitle">Thank you for choosing One Sip</p>
+
+            <div class="success-details">
+                <div class="success-detail-item">
+                    <span class="detail-icon">📅</span>
+                    <div class="detail-content">
+                        <p class="detail-label">Date & Time</p>
+                        <p class="detail-value">${formattedDate}<br>${reservationData.reservationTime}</p>
+                    </div>
+                </div>
+
+                <div class="success-detail-item">
+                    <span class="detail-icon">👥</span>
+                    <div class="detail-content">
+                        <p class="detail-label">Party Size</p>
+                        <p class="detail-value">${reservationData.partySize} ${reservationData.partySize === '1' ? 'Guest' : 'Guests'}</p>
+                    </div>
+                </div>
+
+                <div class="success-detail-item">
+                    <span class="detail-icon">👤</span>
+                    <div class="detail-content">
+                        <p class="detail-label">Reserved For</p>
+                        <p class="detail-value">${reservationData.customerName}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-message-box">
+                <h3>What's Next?</h3>
+                <p>We've sent confirmation emails to both you and our team. Our staff will contact you shortly at <strong>${reservationData.customerPhone}</strong> to finalize your reservation.</p>
+                ${reservationData.customerEmail ? `<p class="email-note">Check your inbox at <strong>${reservationData.customerEmail}</strong> for confirmation details.</p>` : ''}
+            </div>
+
+            <div class="success-actions">
+                <button class="btn btn-book" onclick="location.href='index.html'">Back to Home</button>
+                <button class="btn btn-outline" onclick="makeAnotherReservation()">Make Another Reservation</button>
+            </div>
+
+            <div class="success-footer">
+                <p>Need to make changes? Call us at <strong>9477742555 | 6292200353</strong></p>
+                <p class="footer-tagline">We look forward to serving you! 🍽️</p>
+            </div>
+        </div>
+    `;
+
+    // Fade out form, then replace with success UI
+    bookingWidget.style.opacity = '0';
+    bookingWidget.style.transition = 'opacity 0.4s ease';
+
+    setTimeout(() => {
+        bookingWidget.innerHTML = successHTML;
+        bookingWidget.style.opacity = '1';
+
+        // Scroll to top of success UI
+        bookingWidget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Trigger celebration animation
+        setTimeout(() => {
+            const successIcon = document.querySelector('.success-icon');
+            if (successIcon) {
+                successIcon.classList.add('animate');
+            }
+        }, 200);
+    }, 400);
+}
+
+/**
+ * Make Another Reservation
+ * Reloads the page to show fresh form
+ */
+function makeAnotherReservation() {
+    window.location.reload();
+}

@@ -33,6 +33,23 @@
     font-weight: 400;
 }
 
+.forgot-password-link {
+    text-align: center;
+    margin-top: var(--spacing-md);
+}
+
+.forgot-password-link a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+}
+
+.forgot-password-link a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
 /* Dashboard */
 .admin-dashboard {
     min-height: 100vh;

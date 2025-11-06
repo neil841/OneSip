@@ -173,6 +173,12 @@ function initForms() {
         signupBtn.addEventListener('click', handleSignupClick);
     }
 
+    // Forgot password link
+    const forgotLink = document.querySelector('.forgot-link');
+    if (forgotLink) {
+        forgotLink.addEventListener('click', handleForgotPasswordClick);
+    }
+
     // Set minimum date for reservation to today
     const dateInput = document.getElementById('date');
     if (dateInput) {
@@ -298,6 +304,45 @@ function handleSignupClick() {
     const signupModal = document.getElementById('signup-modal');
     if (signupModal) {
         signupModal.style.display = 'block';
+    }
+}
+
+/**
+ * Handle forgot password link click
+ * @param {Event} e - The click event
+ */
+async function handleForgotPasswordClick(e) {
+    e.preventDefault();
+
+    const emailInput = document.getElementById('login-email');
+    const formMessage = document.getElementById('login-message');
+    const email = emailInput.value.trim();
+
+    if (!email) {
+        showFormMessage(formMessage, 'Please enter your email address first', 'error');
+        emailInput.focus();
+        return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showFormMessage(formMessage, 'Please enter a valid email address', 'error');
+        emailInput.focus();
+        return;
+    }
+
+    try {
+        const result = await resetPassword(email);
+
+        if (result.success) {
+            showFormMessage(formMessage, '✓ Password reset email sent! Check your inbox.', 'success');
+        } else {
+            showFormMessage(formMessage, result.error, 'error');
+        }
+    } catch (error) {
+        console.error('Error sending password reset email:', error);
+        showFormMessage(formMessage, 'Failed to send password reset email. Please try again.', 'error');
     }
 }
 

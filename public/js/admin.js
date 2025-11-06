@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Login form submit
     loginForm.addEventListener('submit', handleLogin);
 
+    // Forgot password link
+    const forgotPasswordLink = document.getElementById('forgot-password-link');
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', handleForgotPassword);
+    }
+
     // Logout button
     logoutBtn.addEventListener('click', handleLogout);
 
@@ -70,6 +76,44 @@ async function handleLogin(e) {
     } catch (error) {
         console.error('Login error:', error);
         errorDiv.textContent = 'Invalid email or password';
+        errorDiv.className = 'form-message error';
+        errorDiv.style.display = 'block';
+    }
+}
+
+/**
+ * Handle forgot password
+ */
+async function handleForgotPassword(e) {
+    e.preventDefault();
+
+    const emailInput = document.getElementById('admin-email');
+    const email = emailInput.value.trim();
+    const errorDiv = document.getElementById('login-error');
+
+    if (!email) {
+        errorDiv.textContent = 'Please enter your email address first';
+        errorDiv.className = 'form-message error';
+        errorDiv.style.display = 'block';
+        return;
+    }
+
+    try {
+        await firebase.auth().sendPasswordResetEmail(email);
+        errorDiv.textContent = '✓ Password reset email sent! Check your inbox.';
+        errorDiv.className = 'form-message success';
+        errorDiv.style.display = 'block';
+    } catch (error) {
+        console.error('Password reset error:', error);
+        let errorMessage = 'Failed to send password reset email';
+
+        if (error.code === 'auth/user-not-found') {
+            errorMessage = 'No account found with this email';
+        } else if (error.code === 'auth/invalid-email') {
+            errorMessage = 'Invalid email address';
+        }
+
+        errorDiv.textContent = errorMessage;
         errorDiv.className = 'form-message error';
         errorDiv.style.display = 'block';
     }
